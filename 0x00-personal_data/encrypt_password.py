@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-5. Encrypting passwords 
+5. Encrypting passwords
 """
 
 import bcrypt
