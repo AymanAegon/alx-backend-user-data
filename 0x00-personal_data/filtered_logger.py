@@ -3,7 +3,7 @@
 0. Regex-ing
 """
 
-import re 
+import re
 
 
 def filter_datum(fields, redaction, message, separator):
