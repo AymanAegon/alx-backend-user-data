@@ -39,6 +39,7 @@ def forbidden(error) -> str:
     return jsonify({"error": "Forbidden"}), 403
 
 
+@app.before_request
 def auth_check() -> str:
     """ Checks auth
     """
@@ -55,7 +56,6 @@ def auth_check() -> str:
             abort(403)
 
 
-app.before_request(auth_check)
 
 if __name__ == "__main__":
     host = getenv("API_HOST", "0.0.0.0")
