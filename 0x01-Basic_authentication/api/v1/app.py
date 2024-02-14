@@ -43,18 +43,19 @@ def forbidden(error) -> str:
 def authenticate_user() -> str:
     """ Checks auth
     """
-    if auth is None:
-        pass
-    else:
-        excluded_paths = ['/api/v1/status/',
-                          '/api/v1/unauthorized/', '/api/v1/forbidden/']
-        if auth.require_auth(request.path, excluded_paths) is False:
-            return
-        if auth.authorization_header(request) is None:
-            abort(401)
-        if auth.current_user(request) is None:
-            abort(403)
-
+    if auth:
+        excluded_paths = [
+            '/api/v1/status/',
+            '/api/v1/unauthorized/',
+            '/api/v1/forbidden/',
+        ]
+        if auth.require_auth(request.path, excluded_paths):
+            auth_header = auth.authorization_header(request)
+            user = auth.current_user(request)
+            if auth_header is None:
+                abort(401)
+            if user is None:
+                abort(403)
 
 
 if __name__ == "__main__":
