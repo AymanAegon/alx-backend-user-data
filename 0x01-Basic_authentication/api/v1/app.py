@@ -40,7 +40,7 @@ def forbidden(error) -> str:
 
 
 @app.before_request
-def auth_check() -> str:
+def authenticate_user() -> str:
     """ Checks auth
     """
     if auth is None:
