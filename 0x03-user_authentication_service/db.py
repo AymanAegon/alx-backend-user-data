@@ -18,7 +18,7 @@ class DB:
     def __init__(self) -> None:
         """Initialize a new DB instance
         """
-        self._engine = create_engine("sqlite:///a.db", echo=True)
+        self._engine = create_engine("sqlite:///a.db", echo=False)
         Base.metadata.drop_all(self._engine)
         Base.metadata.create_all(self._engine)
         self.__session = None
@@ -53,3 +53,16 @@ class DB:
         if user is None:
             raise NoResultFound
         return user
+    
+    def update_user(self, user_id: int, **kwargs: any) -> None:
+        """
+        takes as argument a required user_id integer and arbitrary
+        keyword arguments, and returns None
+        """
+        user = self.find_user_by(id=user_id)
+        for key, value in kwargs.items():
+            if not hasattr(User, key):
+                raise ValueError
+            setattr(user, key, value)
+        self._session.commit()
+        return None
