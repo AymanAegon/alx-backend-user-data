@@ -46,4 +46,15 @@ class Auth:
     
     def _generate_uuid(self) -> str:
         """return a string representation of a new UUID"""
-        return uuid.uuid4()
+        return str(uuid.uuid4())
+    
+    def create_session(self, email: str) -> str:
+        """takes an email string argument and
+        returns the session ID as a string"""
+        try:
+            user = self._db.find_user_by(email=email)
+        except NoResultFound:
+            return None
+        session_id = self._generate_uuid()
+        self._db.update_user(user_id=user.id, session_id=session_id)
+        return session_id
