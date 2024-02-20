@@ -32,7 +32,7 @@ class Auth:
         except NoResultFound:
             return self._db.add_user(email, _hash_password(password))
         raise ValueError("User {} already exists".format(email))
-    
+
     def valid_login(self, email: str, password: str) -> bool:
         """It should expect email and password required
         arguments and return a boolean"""
@@ -43,11 +43,11 @@ class Auth:
         if checkpw(password.encode("utf-8"), user.hashed_password):
             return True
         return False
-    
+
     def _generate_uuid(self) -> str:
         """return a string representation of a new UUID"""
         return str(uuid.uuid4())
-    
+
     def create_session(self, email: str) -> str:
         """takes an email string argument and
         returns the session ID as a string"""

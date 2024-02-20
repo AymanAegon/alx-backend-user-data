@@ -18,7 +18,7 @@ class DB:
     def __init__(self) -> None:
         """Initialize a new DB instance
         """
-        self._engine = create_engine("sqlite:///a.db", echo=True)
+        self._engine = create_engine("sqlite:///a.db", echo=False)
         Base.metadata.drop_all(self._engine)
         Base.metadata.create_all(self._engine)
         self.__session = None
@@ -31,7 +31,7 @@ class DB:
             DBSession = sessionmaker(bind=self._engine)
             self.__session = DBSession()
         return self.__session
-    
+
     def add_user(self, email: str, hashed_password: str) -> User:
         """adds a user to the database"""
         new_user = User()
@@ -53,7 +53,7 @@ class DB:
         if user is None:
             raise NoResultFound
         return user
-    
+
     def update_user(self, user_id: int, **kwargs: any) -> None:
         """
         takes as argument a required user_id integer and arbitrary
