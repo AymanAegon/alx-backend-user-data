@@ -62,6 +62,8 @@ class DB:
         keyword arguments, and returns None
         """
         user = self.find_user_by(id=user_id)
+        if user is None:
+            return
         for key, value in kwargs.items():
             if not hasattr(User, key):
                 raise ValueError
