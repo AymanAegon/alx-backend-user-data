@@ -14,4 +14,6 @@ print(user)
 session_id = auth.create_session(email)
 print(session_id)
 
-print(auth.get_user_from_session_id("session_id"))
+auth.destroy_session(user.id)
+print(user.session_id)
+
