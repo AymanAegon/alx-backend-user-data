@@ -2,14 +2,16 @@
 """
 Main file
 """
+from auth import Auth
 
-from db import DB
-from user import User
+email = 'bob@bob.com'
+password = 'MyPwdOfBob'
+auth = Auth()
 
-my_db = DB()
+user = auth.register_user(email, password)
+print(user)
 
-user_1 = my_db.add_user("test@test.com", "SuperHashedPwd")
-print(user_1.id)
+session_id = auth.create_session(email)
+print(session_id)
 
-user_2 = my_db.add_user("test1@test.com", "SuperHashedPwd1")
-print(user_2.id)
+print(auth.get_user_from_session_id("session_id"))
