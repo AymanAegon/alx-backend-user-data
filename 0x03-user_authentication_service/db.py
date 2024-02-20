@@ -43,7 +43,7 @@ class DB:
             new_user = None
         return new_user
 
-    def find_user_by(self, **kwargs: any) -> User:
+    def find_user_by(self, **kwargs) -> User:
         """
         takes in arbitrary keyword arguments and returns the first row
         found in the users table as filtered by the method's input arguments
@@ -56,7 +56,7 @@ class DB:
             raise NoResultFound
         return user
 
-    def update_user(self, user_id: int, **kwargs: any) -> None:
+    def update_user(self, user_id: int, **kwargs) -> None:
         """
         takes as argument a required user_id integer and arbitrary
         keyword arguments, and returns None
