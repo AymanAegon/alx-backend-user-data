@@ -76,3 +76,15 @@ class Auth:
         """takes a single user_id integer argument and returns None
         updates the corresponding user’s session ID to None"""
         return self._db.update_user(user_id, session_id=None)
+
+    def get_reset_password_token(self, email: str) -> str:
+        """Finds the user corresponding to the email
+        generate a UUID and update the user’s reset_token database field.
+        Return the token.
+        """
+        user = self._db.find_user_by(email=email)
+        if user is None:
+            raise ValueError
+        token = _generate_uuid()
+        self._db.update_user(user.id, reset_token=token)
+        return token
